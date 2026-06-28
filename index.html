@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ffb6c1,#ffd6e8,#fff);
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    text-align:center;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    width:min(90%,500px);
+    position:relative;
+}
+
+h1{
+    color:#ff3d7f;
+    font-size:2.4rem;
+    margin-bottom:15px;
+}
+
+p{
+    color:#555;
+    margin-bottom:35px;
+    font-size:18px;
+}
+
+.buttons{
+    position:relative;
+    height:160px;
+}
+
+button{
+    border:none;
+    padding:16px 34px;
+    border-radius:50px;
+    font-size:20px;
+    cursor:pointer;
+    transition:.25s;
+    position:absolute;
+}
+
+#yes{
+    background:#ff4d88;
+    color:white;
+    left:80px;
+    top:45px;
+}
+
+#yes:hover{
+    transform:scale(1.08);
+}
+
+#no{
+    background:#444;
+    color:white;
+    right:80px;
+    top:45px;
+}
+
+#message{
+    display:none;
+    margin-top:25px;
+    font-size:28px;
+    color:#ff2e74;
+    animation:pop .5s;
+}
+
+@keyframes pop{
+from{transform:scale(.5);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.heart{
+    position:fixed;
+    font-size:28px;
+    animation:float 3s linear forwards;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+100%{
+transform:translateY(-700px) scale(2);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>❤️ Do You Like Me? ❤️</h1>
+
+<p>You only have two choices... 😄</p>
+
+<div class="buttons">
+<button id="yes">YES 💖</button>
+<button id="no">NO 🙃</button>
+</div>
+
+<div id="message">
+🥹 I knew it!! ❤️
+</div>
+
+</div>
+
+<script>
+
+const no=document.getElementById("no");
+const yes=document.getElementById("yes");
+const msg=document.getElementById("message");
+
+let moveCount=0;
+
+function moveButton(){
+
+moveCount++;
+
+const maxX=window.innerWidth-150;
+const maxY=window.innerHeight-80;
+
+const x=Math.random()*maxX;
+const y=Math.random()*maxY;
+
+no.style.position="fixed";
+no.style.left=x+"px";
+no.style.top=y+"px";
+
+yes.style.transform=`scale(${1+moveCount*0.08})`;
+
+if(moveCount>=12){
+no.innerHTML="Okay okay 😂";
+}
+
+}
+
+no.addEventListener("mouseover",moveButton);
+no.addEventListener("click",moveButton);
+no.addEventListener("touchstart",moveButton);
+
+yes.onclick=function(){
+
+document.querySelector(".buttons").style.display="none";
+msg.style.display="block";
+
+for(let i=0;i<80;i++){
+
+setTimeout(createHeart,i*40);
+
+}
+
+}
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML=Math.random()>0.5?"❤️":"💖";
+
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.bottom="-30px";
+
+heart.style.fontSize=(20+Math.random()*30)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),3000);
+
+}
+
+</script>
+
+</body>
+</html>
